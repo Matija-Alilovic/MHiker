@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Image } from 'react-bootstrap';
-import illustration from '../../assets/img/undraw_picture_re_ne03.svg';
+import illustration from '../../assets/img/illustrations/looking.svg';
 
 const Wrapper = styled.div`
   background-color: var(--primary);

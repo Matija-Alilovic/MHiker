@@ -3,7 +3,8 @@
 :root {
   --primary: #202e5c;
   --secondary: #ffffff;
-  --text: #383838;
+  --text: #858585;
+  --text-primary: #dfdfdf;
 }
 
 html {
@@ -61,4 +62,66 @@ h3,
 h4,
 h5 {
   font-weight: bold;
+}
+
+input {
+  -webkit-appearance: none;
+  box-shadow: none !important;
+}
+:-webkit-autofill {
+  color: #fff !important;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width: 321px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  /* Styles */
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width: 1824px) {
+  html {
+    font-size: 16px;
+  }
 }

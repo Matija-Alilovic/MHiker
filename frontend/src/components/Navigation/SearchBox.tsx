@@ -37,7 +37,7 @@ const ClearButton = styled.button`
 
 const SearchIcon = styled.button`
   position: absolute;
-  top: 2px;
+  top: 0px;
   left: 20px;
   height: 100%;
   border: 0;

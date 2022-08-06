@@ -2,7 +2,8 @@ import React from 'react';
 import Navbar from '../components/Navigation/Navbar';
 import styled from 'styled-components';
 
-import familyHiking from '../assets/img/mainPage.svg';
+import familyHiking from '../assets/img/illustrations/mainPage.svg';
+import newsletterImg from '../assets/img/illustrations/newsletter.svg';
 import trial from '../assets/img/trials/trial-1.jpg';
 import user from '../assets/img/user.jpg';
 
@@ -16,8 +17,17 @@ const Main = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding: 0 5rem;
+  flex-wrap: wrap;
+  padding: 16rem 5rem;
+
+  /* Desktops and laptops ----------- */
+  @media only screen and (max-width: 1224px) {
+    flex-direction: column;
+    gap: 5rem;
+    img {
+      width: 100%;
+    }
+  }
 `;
 
 const Left = styled.div`
@@ -42,10 +52,6 @@ const Left = styled.div`
 
 const Right = styled.div`
   flex: 1;
-
-  img {
-    height: 54vh;
-  }
 `;
 
 const ExploreNow = styled.div`
@@ -120,6 +126,10 @@ const DiscoverTrails = styled.div`
   .custom-shape-divider-bottom-1658567718 .shape-fill {
     fill: #ffffff;
   }
+
+  @media only screen and (max-width: 900px) {
+    padding: 15rem 4rem;
+  }
 `;
 
 const Header = styled.div`
@@ -146,6 +156,10 @@ const TrailList = styled.div`
 
 const Testimonials = styled.div`
   padding: 4rem 12rem;
+
+  @media only screen and (max-width: 900px) {
+    padding: 4rem 0rem;
+  }
 `;
 
 const TestimonialHeader = styled.header`
@@ -171,6 +185,76 @@ const TestimonialList = styled.div`
   flex-wrap: wrap;
 `;
 
+const NewsletterWrapper = styled.div`
+  padding: 4rem 10rem;
+
+  @media only screen and (max-width: 700px) {
+    padding: 4rem 0rem;
+  }
+`;
+
+const Newsletter = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  background-color: var(--primary);
+  border-radius: 50px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 3rem 8rem;
+
+  img {
+    height: 350px;
+  }
+
+  /* Smartphones (portrait) ----------- */
+`;
+
+const NewsletterForm = styled.form`
+  h1 {
+    color: white;
+  }
+
+  span {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+  }
+`;
+
+const InputContainer = styled.div`
+  position: relative;
+
+  input {
+    width: 100%;
+    margin: 2rem 0rem;
+    padding: 1.2rem 1.2rem;
+    border-radius: 50px;
+    border: 1px white;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  button {
+    border-radius: 50px;
+    padding: 1rem 3rem;
+    border: none;
+    color: white;
+    background-color: var(--primary);
+    font-weight: 500;
+
+    position: absolute;
+    bottom: 2.15rem;
+    right: 3px;
+  }
+
+  button:hover {
+  }
+`;
+
 const HomePage = () => {
   return (
     <>
@@ -194,7 +278,7 @@ const HomePage = () => {
           <h2>Discover trails</h2>
         </Header>
         <TrailList>
-          <Card style={{ width: '19rem', border: 'none' }}>
+          <Card style={{ width: '21rem', border: 'none' }}>
             <Card.Img variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -215,7 +299,7 @@ const HomePage = () => {
               </Button>
             </Card.Body>
           </Card>
-          <Card style={{ width: '19rem', border: 'none' }}>
+          <Card style={{ width: '21rem', border: 'none' }}>
             <Card.Img variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -236,7 +320,28 @@ const HomePage = () => {
               </Button>
             </Card.Body>
           </Card>
-          <Card style={{ width: '19rem', border: 'none' }}>
+          <Card style={{ width: '21rem', border: 'none' }}>
+            <Card.Img variant="top" src={trial} />
+            <Card.Body>
+              <Card.Text>
+                <Image fluid rounded src={user} width="50px" height="50px" />
+                &nbsp; &nbsp;
+                <b>Matija Alilović</b>
+              </Card.Text>
+              <Card.Title>Mount Everest </Card.Title>
+              <Card.Text>
+                Mount Everest is Earth's highest mountain above sea level,
+                located in the Mahalangur.
+              </Card.Text>
+
+              <Button
+                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+              >
+                Discover
+              </Button>
+            </Card.Body>
+          </Card>
+          <Card style={{ width: '21rem', border: 'none' }}>
             <Card.Img variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -429,6 +534,24 @@ const HomePage = () => {
           </Card>
         </TestimonialList>
       </Testimonials>
+      <NewsletterWrapper data-aos="fade-up">
+        <Newsletter>
+          <NewsletterForm
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <h1>Subscribe to our newsletter</h1>
+            <span>Recieve latest news, updates, every week</span>
+            <br />
+            <InputContainer>
+              <input type="email" placeholder="Your email here" required />
+              <button type="submit">Join now</button>
+            </InputContainer>
+          </NewsletterForm>
+          <img src={newsletterImg} alt="" />
+        </Newsletter>
+      </NewsletterWrapper>
     </>
   );
 };
