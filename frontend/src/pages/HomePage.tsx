@@ -1,18 +1,18 @@
-import React from "react";
-import Navbar from "../components/Navigation/Navbar";
-import styled from "styled-components";
+import React from 'react';
+import Navbar from '../components/Navigation/Navbar';
+import styled from 'styled-components';
 
-import familyHiking from "../assets/img/illustrations/mainPage.svg";
-import newsletterImg from "../assets/img/illustrations/newsletter.svg";
-import trial from "../assets/img/trials/trial-1.jpg";
-import user from "../assets/img/user.jpg";
+import familyHiking from '../assets/img/illustrations/mainPage.svg';
+import newsletterImg from '../assets/img/illustrations/newsletter.svg';
+import trial from '../assets/img/trials/trial-1.jpg';
+import user from '../assets/img/user.jpg';
 
-import { MdArrowRightAlt, MdStarBorder } from "react-icons/md";
+import { MdArrowRightAlt, MdStarBorder } from 'react-icons/md';
 
-import Card from "react-bootstrap/Card";
-import { Button } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
-import Footer from "../components/Footer/Footer";
+import Card from 'react-bootstrap/Card';
+import { Button } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
+import Footer from '../components/Footer/Footer';
 
 const Main = styled.main`
   display: flex;
@@ -279,7 +279,7 @@ const HomePage = () => {
           <h2>Discover trails</h2>
         </Header>
         <TrailList>
-          <Card style={{ width: "21rem", border: "none" }}>
+          <Card style={{ width: '21rem', border: 'none' }}>
             <Card.Img variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -294,13 +294,13 @@ const HomePage = () => {
               </Card.Text>
 
               <Button
-                style={{ backgroundColor: "var(--primary)", border: "none" }}
+                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
               >
                 Discover
               </Button>
             </Card.Body>
           </Card>
-          <Card style={{ width: "21rem", border: "none" }}>
+          <Card style={{ width: '21rem', border: 'none' }}>
             <Card.Img variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -315,13 +315,13 @@ const HomePage = () => {
               </Card.Text>
 
               <Button
-                style={{ backgroundColor: "var(--primary)", border: "none" }}
+                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
               >
                 Discover
               </Button>
             </Card.Body>
           </Card>
-          <Card style={{ width: "21rem", border: "none" }}>
+          <Card style={{ width: '21rem', border: 'none' }}>
             <Card.Img variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -336,13 +336,13 @@ const HomePage = () => {
               </Card.Text>
 
               <Button
-                style={{ backgroundColor: "var(--primary)", border: "none" }}
+                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
               >
                 Discover
               </Button>
             </Card.Body>
           </Card>
-          <Card style={{ width: "21rem", border: "none" }}>
+          <Card style={{ width: '21rem', border: 'none' }}>
             <Card.Img variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -357,7 +357,7 @@ const HomePage = () => {
               </Card.Text>
 
               <Button
-                style={{ backgroundColor: "var(--primary)", border: "none" }}
+                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
               >
                 Discover
               </Button>
@@ -399,11 +399,11 @@ const HomePage = () => {
         <TestimonialList>
           <Card
             style={{
-              width: "25rem",
-              border: "none",
-              padding: "10px",
-              borderRadius: "15px",
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+              width: '25rem',
+              border: 'none',
+              padding: '10px',
+              borderRadius: '15px',
+              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
             }}
           >
             <Card.Body>
@@ -433,11 +433,11 @@ const HomePage = () => {
           </Card>
           <Card
             style={{
-              width: "25rem",
-              border: "none",
-              padding: "10px",
-              borderRadius: "15px",
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+              width: '25rem',
+              border: 'none',
+              padding: '10px',
+              borderRadius: '15px',
+              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
             }}
           >
             <Card.Body>
@@ -467,11 +467,11 @@ const HomePage = () => {
           </Card>
           <Card
             style={{
-              width: "25rem",
-              border: "none",
-              padding: "10px",
-              borderRadius: "15px",
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+              width: '25rem',
+              border: 'none',
+              padding: '10px',
+              borderRadius: '15px',
+              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
             }}
           >
             <Card.Body>
@@ -501,11 +501,11 @@ const HomePage = () => {
           </Card>
           <Card
             style={{
-              width: "25rem",
-              border: "none",
-              padding: "10px",
-              borderRadius: "15px",
-              boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+              width: '25rem',
+              border: 'none',
+              padding: '10px',
+              borderRadius: '15px',
+              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
             }}
           >
             <Card.Body>

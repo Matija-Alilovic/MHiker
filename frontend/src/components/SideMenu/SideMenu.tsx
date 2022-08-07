@@ -24,13 +24,23 @@ const Wrapper = styled.div`
 
   opacity: 0;
   visibility: hidden;
+
+  @media only screen and (max-device-width: 880px) {
+    padding: 0;
+  }
+
+  @media only screen and (max-width: 1224px) {
+    img {
+      display: none;
+    }
+  }
 `;
 
 const MenuList = styled.ul`
   display: flex;
   flex-direction: column;
   list-style-type: none;
-  gap: 20px;
+  gap: 2rem;
 `;
 
 const MenuItem = styled.li``;
@@ -39,7 +49,7 @@ const MenuLink = styled.a`
   position: relative;
   display: inline-flex;
   font-weight: 500;
-  font-size: 48px;
+  font-size: 3rem;
   color: white;
   text-transform: uppercase;
   text-decoration: none;

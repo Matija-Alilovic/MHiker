@@ -3,12 +3,15 @@ import styled from "styled-components";
 import familyHiking from "../../assets/img/illustrations/mainPage.svg";
 
 const FooterWrapper = styled.footer`
+position: relative;
   padding: 8rem 12rem;
   margin-top: 8rem;
   background-color: var(--primary);
 
   display: flex;
-  gap: 4rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
 
   img {
     width: 15rem;
@@ -32,14 +35,18 @@ const FooterColumn = styled.div`
   }
 `;
 
+const AllRightsReserved = styled.div`
+  position: absolute;
+  color: white;
+  bottom: 15px;
+`
+
 const Footer = () => {
   return (
     <FooterWrapper>
       <FooterColumn>
         <h1>MHikes</h1>
-        <img src={familyHiking} alt="" />
       </FooterColumn>
-      <FooterColumn></FooterColumn>
       <FooterColumn>
         <h3>Company</h3>
         <span>About</span>
@@ -56,7 +63,13 @@ const Footer = () => {
         <span>Social Media</span>
         <span>Supporters</span>
       </FooterColumn>
-      <FooterColumn></FooterColumn>
+      <FooterColumn>
+        <h3>Say Hi!</h3>
+        <span>Contact Us</span>
+      </FooterColumn>
+      <AllRightsReserved>
+      © {new Date().getFullYear()} MHikes. All rights reserved.
+      </AllRightsReserved>
     </FooterWrapper>
   );
 };
