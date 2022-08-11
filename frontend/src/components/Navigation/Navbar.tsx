@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import SearchBox from './SearchBox';
+import SearchBox from "./SearchBox";
 
-import logo from '../../assets/img/logo.svg';
-import user from '../../assets/img/user.png';
+import logo from "../../assets/img/logo.svg";
+import user from "../../assets/img/user.png";
 
-import { BiMenuAltRight } from 'react-icons/bi';
-import { AiOutlineClose } from 'react-icons/ai';
+import { BiMenuAltRight } from "react-icons/bi";
+import { AiOutlineClose } from "react-icons/ai";
 
-import SideMenu from '../SideMenu/SideMenu';
-import { Link } from 'react-router-dom';
+import SideMenu from "../SideMenu/SideMenu";
+import { Link } from "react-router-dom";
 
-import Image from 'react-bootstrap/Image';
-import { useSelector } from 'react-redux';
-import { IInitStateUser } from '../../redux/reducers/authReducer';
+import Image from "react-bootstrap/Image";
+import { useSelector } from "react-redux";
+import { IInitStateUser } from "../../redux/reducers/authReducer";
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,12 +33,16 @@ const Wrapper = styled.div`
 const Left = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.2rem;
 
-  font-size: 2rem;
+  font-size: 2.1rem;
   font-weight: 500;
 
   color: #202e5c;
+
+  img {
+    margin-bottom: 0.6rem;
+  }
 
   :hover {
     cursor: pointer;
@@ -84,7 +88,7 @@ const Navbar: React.FC<Props> = ({ children }) => {
 
   return (
     <Wrapper>
-      <Link to="/" style={{ textDecoration: 'none' }}>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <Left>
           <LogoImg src={logo} />
           <span>MHikes</span>
