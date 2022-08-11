@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { Image } from 'react-bootstrap';
 import illustration from '../../assets/img/illustrations/looking.svg';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   background-color: var(--primary);
@@ -45,7 +46,7 @@ const MenuList = styled.ul`
 
 const MenuItem = styled.li``;
 
-const MenuLink = styled.a`
+const MenuLink = styled.span`
   position: relative;
   display: inline-flex;
   font-weight: 500;
@@ -55,6 +56,7 @@ const MenuLink = styled.a`
   text-decoration: none;
 
   :hover {
+    cursor: pointer;
     color: #c9c9c9;
   }
 `;
@@ -73,19 +75,25 @@ const SideMenu: React.FC<Props> = ({ sideMenuActive }) => {
     >
       <MenuList>
         <MenuItem>
-          <MenuLink href="#">Home</MenuLink>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <MenuLink>Home</MenuLink>
+          </Link>
         </MenuItem>
         <MenuItem>
-          <MenuLink href="#">My Profile</MenuLink>
+          <Link to="/explore" style={{ textDecoration: 'none' }}>
+            <MenuLink>Explore Trails</MenuLink>
+          </Link>
         </MenuItem>
         <MenuItem>
-          <MenuLink href="#">Explore Trails</MenuLink>
+          <MenuLink>My Profile</MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink href="#">About</MenuLink>
+          <MenuLink>About</MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink href="#">Login</MenuLink>
+          <Link to="/login" style={{ textDecoration: 'none' }}>
+            <MenuLink>Login</MenuLink>
+          </Link>
         </MenuItem>
       </MenuList>
       <Image src={illustration} />

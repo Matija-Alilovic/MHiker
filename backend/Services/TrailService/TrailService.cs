@@ -27,7 +27,7 @@ namespace backend.Services.TrailService
         private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         //Get trails by user
-        public async Task<ServiceResponse<List<Trail>>> GetAllTrails()
+        public async Task<ServiceResponse<List<Trail>>> GetAllTrailsByUser()
         {
             var response = new ServiceResponse<List<Trail>>();
 

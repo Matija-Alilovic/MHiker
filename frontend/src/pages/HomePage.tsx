@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import familyHiking from '../assets/img/illustrations/mainPage.svg';
 import newsletterImg from '../assets/img/illustrations/newsletter.svg';
 import trial from '../assets/img/trials/trial-1.jpg';
-import user from '../assets/img/user.jpg';
+import user from '../assets/img/user.png';
 
 import { MdArrowRightAlt, MdStarBorder } from 'react-icons/md';
 
@@ -13,6 +13,7 @@ import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import Footer from '../components/Footer/Footer';
+import { Link } from 'react-router-dom';
 
 const Main = styled.main`
   display: flex;
@@ -259,15 +260,17 @@ const InputContainer = styled.div`
 const HomePage = () => {
   return (
     <>
-      <Navbar />
+      <Navbar>{}</Navbar>
       <Main>
         <Left data-aos="fade-left" data-aos-duration="500">
           <h2>Explore Hiking Locations Or Post Your Own!</h2>
           <h5>First Hiking Social Media</h5>
-          <ExploreNow className="hover-underline-animation">
-            <p>Explore now</p>
-            <MdArrowRightAlt className="right-arrow" />
-          </ExploreNow>
+          <Link to="/explore" style={{ textDecoration: 'none' }}>
+            <ExploreNow className="hover-underline-animation">
+              <p>Explore now</p>
+              <MdArrowRightAlt className="right-arrow" />
+            </ExploreNow>
+          </Link>
         </Left>
         <Right data-aos="fade-right" data-aos-duration="500">
           <img src={familyHiking} alt="Error when loading photo" />

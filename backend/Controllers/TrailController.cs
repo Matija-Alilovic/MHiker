@@ -24,10 +24,10 @@ namespace backend.Controllers
             _service = service;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("GetAllByUser")]
         public async Task<ActionResult<ServiceResponse<List<Trail>>>> Get()
         {
-            return Ok(await _service.GetAllTrails());
+            return Ok(await _service.GetAllTrailsByUser());
         }
 
         [HttpPost]
