@@ -1,31 +1,31 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import { IInitStateUser } from '../redux/reducers/authReducer';
-import { useSelector } from 'react-redux';
-import Image from 'react-bootstrap/Image';
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import { IInitStateUser } from "../redux/reducers/authReducer";
+import { useSelector } from "react-redux";
+import Image from "react-bootstrap/Image";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 import {
   FaFacebookMessenger,
   FaTwitter,
   FaInstagram,
   FaPlusCircle,
-} from 'react-icons/fa';
+} from "react-icons/fa";
 
-import Navbar from '../components/Navigation/Navbar';
-import profile_background from '../assets/img/profile/profile-page-background.jpg';
+import Navbar from "../components/Navigation/Navbar";
+import profile_background from "../assets/img/profile/profile-page-background.jpg";
 
-import trail5 from '../assets/img/trials/trial-5.jpg';
-import trail4 from '../assets/img/trials/trial-4.jpg';
-import trail3 from '../assets/img/trials/trial-3.jpg';
-import trail2 from '../assets/img/trials/trial-2.jpg';
-import trial from '../assets/img/trials/trial-1.jpg';
+import trail5 from "../assets/img/trials/trial-5.jpg";
+import trail4 from "../assets/img/trials/trial-4.jpg";
+import trail3 from "../assets/img/trials/trial-3.jpg";
+import trail2 from "../assets/img/trials/trial-2.jpg";
+import trial from "../assets/img/trials/trial-1.jpg";
 
-import user from '../assets/img/user.png';
-import { Button, Card } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import user from "../assets/img/user.png";
+import { Button, Card, Form, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const ProfileBackgroundImage = styled.img`
   object-fit: cover;
@@ -162,8 +162,17 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const authData: IInitStateUser = useSelector((state: any) => state.auth);
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModalClose = () => setShowModal(false);
+  const handleModalShow = () => setShowModal(true);
+
+  const onAddTrailHandler = (event: any) => {
+    event.preventDefault();
+  };
+
   useEffect(() => {
-    !authData.loggedIn && navigate('/login');
+    !authData.loggedIn && navigate("/login");
   }, []);
 
   return (
@@ -181,14 +190,14 @@ const ProfilePage = () => {
           </Left>
           <Right>
             <Button
-              style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+              style={{ backgroundColor: "var(--primary)", border: "none" }}
             >
               Edit Profile
             </Button>
 
             <Dropdown>
               <Dropdown.Toggle
-                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+                style={{ backgroundColor: "var(--primary)", border: "none" }}
               >
                 Options
               </Dropdown.Toggle>
@@ -204,19 +213,19 @@ const ProfilePage = () => {
           <BottomLeft>
             <Button
               style={{
-                backgroundColor: 'var(--primary)',
-                border: 'none',
+                backgroundColor: "var(--primary)",
+                border: "none",
               }}
             >
               <FaFacebookMessenger />
             </Button>
             <Button
-              style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+              style={{ backgroundColor: "var(--primary)", border: "none" }}
             >
               <FaTwitter />
             </Button>
             <Button
-              style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+              style={{ backgroundColor: "var(--primary)", border: "none" }}
             >
               <FaInstagram />
             </Button>
@@ -246,15 +255,15 @@ const ProfilePage = () => {
 
                   <Button
                     style={{
-                      backgroundColor: 'var(--primary)',
-                      border: 'none',
+                      backgroundColor: "var(--primary)",
+                      border: "none",
                     }}
                   >
                     Discover
                   </Button>
                 </Card.Body>
               </TrailCard>
-              <EmptyCard>
+              <EmptyCard onClick={handleModalShow}>
                 <FaPlusCircle />
                 <h2>Add Trail</h2>
               </EmptyCard>
@@ -262,6 +271,48 @@ const ProfilePage = () => {
           </BottomRight>
         </Bottom>
       </ProfileWrapper>
+
+      <Modal show={showModal} onHide={handleModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create Trail</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form validated={true} onSubmit={onAddTrailHandler}>
+            <Form.Group className="mb-3">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" placeholder="Enter Name" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                type="text"
+                placeholder="Description"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Image</Form.Label>
+              <Form.Control
+                type="file"
+                accept="image/png, image/gif, image/jpeg, image/webp"
+                required
+              />
+            </Form.Group>
+            <Button
+              type="submit"
+              style={{ backgroundColor: "var(--primary)", border: "none" }}
+            >
+              Create
+            </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

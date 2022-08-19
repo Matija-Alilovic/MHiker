@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { useNavigate } from 'react-router';
+import { useNavigate } from "react-router";
 
 interface ITrail {
   uid: string;
@@ -20,15 +20,18 @@ const initialState: IInitStateTrail = {
 };
 
 const authSlice = createSlice({
-  name: 'trailSlice',
+  name: "trailSlice",
   initialState,
   reducers: {
     addTrail(state: IInitStateTrail, action) {
       state.items.push(action.payload);
     },
+    setTrails(state: IInitStateTrail, action) {
+      state.items = action.payload;
+    },
   },
 });
 
-export const { addTrail } = authSlice.actions;
+export const { addTrail, setTrails } = authSlice.actions;
 
 export default authSlice.reducer;
