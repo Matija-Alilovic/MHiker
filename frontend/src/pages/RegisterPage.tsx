@@ -65,10 +65,15 @@ const RegisterPage = () => {
   const onRegisterHandler = (event: any) => {
     event.preventDefault();
 
-    if (emailRef.current?.value != null && passwordRef.current?.value != null) {
+    if (
+      emailRef.current?.value != null &&
+      passwordRef.current?.value != null &&
+      usernameRef.current?.value != null
+    ) {
       handleRegister(
         emailRef.current?.value,
         passwordRef.current?.value,
+        usernameRef.current?.value,
         dispatch,
         navigate
       );
@@ -93,6 +98,7 @@ const RegisterPage = () => {
           <Form.Label>Username</Form.Label>
           <Form.Control
             ref={usernameRef}
+            pattern="^\S{8,20}"
             type="text"
             placeholder="Enter username"
             required

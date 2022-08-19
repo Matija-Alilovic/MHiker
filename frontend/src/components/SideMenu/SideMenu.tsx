@@ -85,7 +85,9 @@ const SideMenu: React.FC<Props> = ({ sideMenuActive }) => {
           </Link>
         </MenuItem>
         <MenuItem>
-          <MenuLink>My Profile</MenuLink>
+          <Link to="/profile" style={{ textDecoration: 'none' }}>
+            <MenuLink>My Profile</MenuLink>
+          </Link>
         </MenuItem>
         <MenuItem>
           <MenuLink>About</MenuLink>

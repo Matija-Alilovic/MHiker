@@ -1,20 +1,21 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import SearchBox from "./SearchBox";
+import SearchBox from './SearchBox';
 
-import logo from "../../assets/img/logo.svg";
-import user from "../../assets/img/user.png";
+import logo from '../../assets/img/logo.svg';
+import user from '../../assets/img/user.png';
 
-import { BiMenuAltRight } from "react-icons/bi";
-import { AiOutlineClose } from "react-icons/ai";
+import { BiMenuAltRight } from 'react-icons/bi';
+import { AiOutlineClose } from 'react-icons/ai';
 
-import SideMenu from "../SideMenu/SideMenu";
-import { Link } from "react-router-dom";
+import SideMenu from '../SideMenu/SideMenu';
+import { Link, useNavigate } from 'react-router-dom';
 
-import Image from "react-bootstrap/Image";
-import { useSelector } from "react-redux";
-import { IInitStateUser } from "../../redux/reducers/authReducer";
+import Image from 'react-bootstrap/Image';
+import { useDispatch, useSelector } from 'react-redux';
+import { IInitStateUser, logOut } from '../../redux/reducers/authReducer';
+import { Dropdown } from 'react-bootstrap';
 
 const Wrapper = styled.div`
   display: flex;
@@ -82,13 +83,15 @@ interface Props {
 }
 
 const Navbar: React.FC<Props> = ({ children }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const authData: IInitStateUser = useSelector((state: any) => state.auth);
 
   const [sideMenuActive, setSideMenuActive] = useState(false);
 
   return (
     <Wrapper>
-      <Link to="/" style={{ textDecoration: "none" }}>
+      <Link to="/" style={{ textDecoration: 'none' }}>
         <Left>
           <LogoImg src={logo} />
           <span>MHikes</span>
@@ -112,7 +115,34 @@ const Navbar: React.FC<Props> = ({ children }) => {
           />
         )}
         {authData.loggedIn && (
-          <UserImg src={authData.photoUrl} roundedCircle fluid />
+          <Dropdown>
+            <Dropdown.Toggle
+              variant="light"
+              style={{
+                backgroundColor: 'transparent',
+                width: '6rem',
+                border: 'none',
+              }}
+            >
+              <UserImg src={authData.photoUrl} roundedCircle fluid />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item
+                onClick={() => {
+                  navigate('/profile');
+                }}
+              >
+                My Profile
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => {
+                  dispatch(logOut());
+                }}
+              >
+                Sign out
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         )}
       </Right>
       <SideMenu sideMenuActive={sideMenuActive} />

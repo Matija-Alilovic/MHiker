@@ -3,6 +3,7 @@ import {
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth';
 
 import { Dispatch } from 'react';
@@ -18,6 +19,7 @@ import {
 const handleRegister = (
   email: string,
   password: string,
+  username: string,
   dispatch: Dispatch<AnyAction>,
   navigate: NavigateFunction
 ) => {
@@ -28,7 +30,7 @@ const handleRegister = (
       dispatch(
         signIn({
           uid: user.uid,
-          username: user.displayName,
+          username: username,
           email: user.email,
         })
       );
@@ -40,6 +42,10 @@ const handleRegister = (
 
       dispatch(setErrorMessage({ errorMessage: errorMessage }));
     });
+
+  updateProfile(auth.currentUser!, {
+    displayName: username,
+  });
 };
 
 const handleLogin = (
@@ -51,6 +57,8 @@ const handleLogin = (
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+
+      console.log(user.displayName);
 
       dispatch(
         signIn({

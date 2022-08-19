@@ -6,8 +6,12 @@ import familyHiking from '../assets/img/illustrations/mainPage.svg';
 import newsletterImg from '../assets/img/illustrations/newsletter.svg';
 import trial from '../assets/img/trials/trial-1.jpg';
 import user from '../assets/img/user.png';
+import testimonialFace from '../assets/img/profile/testimonial-face.jpg';
+import testimonialFace2 from '../assets/img/profile/testimonial-face2.jpg';
 
 import { MdArrowRightAlt, MdStarBorder } from 'react-icons/md';
+
+import { FaStar } from 'react-icons/fa';
 
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
@@ -151,9 +155,21 @@ const Header = styled.div`
 
 const TrailList = styled.div`
   display: flex;
-  justify-content: left;
+  justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
+`;
+
+const TrailCard = styled(Card)`
+  width: 25rem;
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.12) 0px 7px 29px 0px;
+`;
+
+const TrailCardImage = styled(Card.Img)`
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
 `;
 
 const Testimonials = styled.div`
@@ -185,6 +201,14 @@ const TestimonialList = styled.div`
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
+`;
+
+const TestimonialCard = styled(Card)`
+  width: 25rem;
+  border: none;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
 
 const NewsletterWrapper = styled.div`
@@ -282,8 +306,8 @@ const HomePage = () => {
           <h2>Discover trails</h2>
         </Header>
         <TrailList>
-          <Card style={{ width: '21rem', border: 'none' }}>
-            <Card.Img variant="top" src={trial} />
+          <TrailCard>
+            <TrailCardImage variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
                 <Image fluid rounded src={user} width="50px" height="50px" />
@@ -297,14 +321,17 @@ const HomePage = () => {
               </Card.Text>
 
               <Button
-                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+                style={{
+                  backgroundColor: 'var(--primary)',
+                  border: 'none',
+                }}
               >
                 Discover
               </Button>
             </Card.Body>
-          </Card>
-          <Card style={{ width: '21rem', border: 'none' }}>
-            <Card.Img variant="top" src={trial} />
+          </TrailCard>
+          <TrailCard>
+            <TrailCardImage variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
                 <Image fluid rounded src={user} width="50px" height="50px" />
@@ -318,14 +345,17 @@ const HomePage = () => {
               </Card.Text>
 
               <Button
-                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+                style={{
+                  backgroundColor: 'var(--primary)',
+                  border: 'none',
+                }}
               >
                 Discover
               </Button>
             </Card.Body>
-          </Card>
-          <Card style={{ width: '21rem', border: 'none' }}>
-            <Card.Img variant="top" src={trial} />
+          </TrailCard>
+          <TrailCard>
+            <TrailCardImage variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
                 <Image fluid rounded src={user} width="50px" height="50px" />
@@ -339,33 +369,15 @@ const HomePage = () => {
               </Card.Text>
 
               <Button
-                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+                style={{
+                  backgroundColor: 'var(--primary)',
+                  border: 'none',
+                }}
               >
                 Discover
               </Button>
             </Card.Body>
-          </Card>
-          <Card style={{ width: '21rem', border: 'none' }}>
-            <Card.Img variant="top" src={trial} />
-            <Card.Body>
-              <Card.Text>
-                <Image fluid rounded src={user} width="50px" height="50px" />
-                &nbsp; &nbsp;
-                <b>Matija Alilović</b>
-              </Card.Text>
-              <Card.Title>Mount Everest </Card.Title>
-              <Card.Text>
-                Mount Everest is Earth's highest mountain above sea level,
-                located in the Mahalangur.
-              </Card.Text>
-
-              <Button
-                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
-              >
-                Discover
-              </Button>
-            </Card.Body>
-          </Card>
+          </TrailCard>
         </TrailList>
         <div className="custom-shape-divider-top-1658516882">
           <svg
@@ -400,142 +412,114 @@ const HomePage = () => {
           <h2>Share your favourite hiking locations!</h2>
         </TestimonialHeader>
         <TestimonialList>
-          <Card
-            style={{
-              width: '25rem',
-              border: 'none',
-              padding: '10px',
-              borderRadius: '15px',
-              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-            }}
-          >
+          <TestimonialCard>
             <Card.Body>
               <Card.Title>
                 <Image
                   fluid
                   roundedCircle
-                  src={user}
+                  src={testimonialFace}
                   width="50px"
                   height="50px"
+                  style={{ marginBottom: '15px' }}
                 />
                 <br />
-                Matija Alilovic
+                Li Xiaoyu
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar />
               </Card.Subtitle>
               <Card.Text>
                 What an amazing place, I was hiking there 2 weeks ago and it was
                 awesome!
               </Card.Text>
             </Card.Body>
-          </Card>
-          <Card
-            style={{
-              width: '25rem',
-              border: 'none',
-              padding: '10px',
-              borderRadius: '15px',
-              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-            }}
-          >
+          </TestimonialCard>
+          <TestimonialCard>
             <Card.Body>
               <Card.Title>
                 <Image
                   fluid
                   roundedCircle
-                  src={user}
+                  src={testimonialFace2}
                   width="50px"
                   height="50px"
+                  style={{ marginBottom: '15px' }}
                 />
                 <br />
-                Matija Alilovic
+                John Marset
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
               </Card.Subtitle>
               <Card.Text>
-                What an amazing place, I was hiking there 2 weeks ago and it was
-                awesome!
+                Couldn’t have been better. Location was beautiful and equipped
+                with everything I needed.
               </Card.Text>
             </Card.Body>
-          </Card>
-          <Card
-            style={{
-              width: '25rem',
-              border: 'none',
-              padding: '10px',
-              borderRadius: '15px',
-              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-            }}
-          >
+          </TestimonialCard>
+          <TestimonialCard>
             <Card.Body>
               <Card.Title>
                 <Image
                   fluid
                   roundedCircle
-                  src={user}
+                  src={testimonialFace2}
                   width="50px"
                   height="50px"
+                  style={{ marginBottom: '15px' }}
                 />
                 <br />
-                Matija Alilovic
+                John Marset
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
               </Card.Subtitle>
               <Card.Text>
-                What an amazing place, I was hiking there 2 weeks ago and it was
-                awesome!
+                Couldn’t have been better. Location was beautiful and equipped
+                with everything I needed.
               </Card.Text>
             </Card.Body>
-          </Card>
-          <Card
-            style={{
-              width: '25rem',
-              border: 'none',
-              padding: '10px',
-              borderRadius: '15px',
-              boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-            }}
-          >
+          </TestimonialCard>
+          <TestimonialCard>
             <Card.Body>
               <Card.Title>
                 <Image
                   fluid
                   roundedCircle
-                  src={user}
+                  src={testimonialFace2}
                   width="50px"
                   height="50px"
+                  style={{ marginBottom: '15px' }}
                 />
                 <br />
-                Matija Alilovic
+                John Marset
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
-                <MdStarBorder />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
+                <FaStar color="gold" />
               </Card.Subtitle>
               <Card.Text>
-                What an amazing place, I was hiking there 2 weeks ago and it was
-                awesome!
+                Couldn’t have been better. Location was beautiful and equipped
+                with everything I needed.
               </Card.Text>
             </Card.Body>
-          </Card>
+          </TestimonialCard>
         </TestimonialList>
       </Testimonials>
       <NewsletterWrapper data-aos="fade-up">

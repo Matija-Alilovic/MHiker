@@ -3,6 +3,8 @@ import { getAnalytics } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
 
+import { getFirestore } from 'firebase/firestore';
+
 const provider = new GoogleAuthProvider();
 
 const firebaseConfig = {
@@ -21,4 +23,7 @@ const analytics = getAnalytics(app);
 
 const auth = getAuth(app);
 
-export { app, auth, provider };
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
+export { app, auth, provider, db };
