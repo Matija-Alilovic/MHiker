@@ -10,9 +10,17 @@ const getTrails = (dispatch: Dispatch<AnyAction>) => {
     const trailsCollectionRef = collection(db, "trails");
     const querySnapshot = await getDocs(trailsCollectionRef);
 
+    const data: any = [];
+
     querySnapshot.forEach((doc: any) => {
-      console.log(`${doc.data().name}`);
+      data.push({
+        name: doc.data().name,
+        description: doc.data().desc,
+        image: doc.data().image,
+      });
     });
+
+    dispatch(setTrails(data));
   };
 
   getData();

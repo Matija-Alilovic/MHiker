@@ -16,7 +16,8 @@ import user from "../assets/img/user.png";
 import { Button, Card } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { getTrails } from "../firebase/handlers/trailHandlers";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { IInitStateTrail } from "../redux/reducers/trailReducer";
 
 const Wrapper = styled.div``;
 
@@ -89,6 +90,7 @@ const TrailCardImage = styled(Card.Img)`
 
 const ExplorePage = () => {
   const dispatch = useDispatch();
+  const trailData: IInitStateTrail = useSelector((state: any) => state.trails);
 
   useEffect(() => {
     getTrails(dispatch);
@@ -115,216 +117,26 @@ const ExplorePage = () => {
         </Categories>
       </Title>
       <Trails>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trail2} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
+        {trailData.items.map((item) => (
+          <TrailCard>
+            <TrailCardImage variant="top" src={item.image} />
+            <Card.Body>
+              <Card.Text>
+                <Image fluid rounded src={user} width="50px" height="50px" />
+                &nbsp; &nbsp;
+                <b>Matija Alilović</b>
+              </Card.Text>
+              <Card.Title>{item.name}</Card.Title>
+              <Card.Text>{item.description}</Card.Text>
 
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trial} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
-
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trail3} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
-
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trail4} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
-
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trail5} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
-
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trail2} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
-
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trial} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
-
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trail3} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
-
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trail4} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
-
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
-        <TrailCard>
-          <TrailCardImage variant="top" src={trail5} />
-          <Card.Body>
-            <Card.Text>
-              <Image fluid rounded src={user} width="50px" height="50px" />
-              &nbsp; &nbsp;
-              <b>Matija Alilović</b>
-            </Card.Text>
-            <Card.Title>Mount Everest </Card.Title>
-            <Card.Text>
-              Mount Everest is Earth's highest mountain above sea level, located
-              in the Mahalangur.
-            </Card.Text>
-
-            <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
-            >
-              Discover
-            </Button>
-          </Card.Body>
-        </TrailCard>
+              <Button
+                style={{ backgroundColor: "var(--primary)", border: "none" }}
+              >
+                Discover
+              </Button>
+            </Card.Body>
+          </TrailCard>
+        ))}
       </Trails>
       <Footer />
     </>
