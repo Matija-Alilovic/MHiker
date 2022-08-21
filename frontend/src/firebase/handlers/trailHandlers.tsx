@@ -14,6 +14,8 @@ const getTrails = (dispatch: Dispatch<AnyAction>) => {
 
     querySnapshot.forEach((doc: any) => {
       data.push({
+        uid: doc.data().uid,
+        username: doc.data().username,
         name: doc.data().name,
         description: doc.data().description,
         image: doc.data().image,

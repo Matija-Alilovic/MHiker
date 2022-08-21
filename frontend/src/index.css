@@ -7,6 +7,10 @@
   --text-silver: #464646;
 }
 
+.App {
+  position: relative;
+}
+
 html {
   scroll-behavior: smooth;
 }

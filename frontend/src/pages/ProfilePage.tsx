@@ -31,6 +31,7 @@ import trial from '../assets/img/trials/trial-1.jpg';
 
 import user from '../assets/img/user.png';
 import { addTrails } from '../firebase/handlers/trailHandlers';
+import { toggleSpinner } from '../redux/reducers/spinnerReducer';
 
 const ProfileBackgroundImage = styled.img`
   object-fit: cover;
@@ -145,6 +146,7 @@ const EmptyCard = styled.div`
   flex-direction: column;
   align-items: center;
   width: 22rem;
+  height: 30rem;
   gap: 1rem;
   background-color: var(--text-primary);
   border-radius: 8px;
@@ -178,13 +180,13 @@ const ProfilePage = () => {
   const onAddTrailHandler = async (event: any) => {
     event.preventDefault();
 
+    dispatch(toggleSpinner());
+
     const image = ref(storage, `images/${file.name + v4()}`);
 
     await uploadBytes(image, file);
-    toast('Image Uploaded!');
 
     const downloadUrl = await getDownloadURL(image);
-    toast(downloadUrl.toString());
 
     if (
       nameRef.current?.value != null &&
@@ -199,6 +201,9 @@ const ProfilePage = () => {
         dispatch
       );
     }
+
+    toast('Sucessfully Created Trail Post!');
+    dispatch(toggleSpinner());
   };
 
   const onFileAdd = (event: any) => {
@@ -267,36 +272,6 @@ const ProfilePage = () => {
           <BottomRight>
             <h2>My Trails</h2>
             <Trails>
-              <TrailCard>
-                <TrailCardImage variant="top" src={trail2} />
-                <Card.Body>
-                  <Card.Text>
-                    <Image
-                      fluid
-                      rounded
-                      src={user}
-                      width="50px"
-                      height="50px"
-                    />
-                    &nbsp; &nbsp;
-                    <b>Matija Alilović</b>
-                  </Card.Text>
-                  <Card.Title>Mount Everest </Card.Title>
-                  <Card.Text>
-                    Mount Everest is Earth's highest mountain above sea level,
-                    located in the Mahalangur.
-                  </Card.Text>
-
-                  <Button
-                    style={{
-                      backgroundColor: 'var(--primary)',
-                      border: 'none',
-                    }}
-                  >
-                    Discover
-                  </Button>
-                </Card.Body>
-              </TrailCard>
               <EmptyCard onClick={() => setShowModal(true)}>
                 <FaPlusCircle />
                 <h2>Add Trail</h2>
@@ -305,7 +280,6 @@ const ProfilePage = () => {
           </BottomRight>
         </Bottom>
       </ProfileWrapper>
-
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Create Trail</Modal.Title>

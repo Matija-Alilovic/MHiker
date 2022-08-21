@@ -35,6 +35,12 @@ const handleRegister = (
         })
       );
 
+      if (auth.currentUser != null) {
+        updateProfile(auth.currentUser, {
+          displayName: username,
+        });
+      }
+
       navigate('/');
     })
     .catch((error) => {
@@ -42,10 +48,6 @@ const handleRegister = (
 
       dispatch(setErrorMessage({ errorMessage: errorMessage }));
     });
-
-  updateProfile(auth.currentUser!, {
-    displayName: username,
-  });
 };
 
 const handleLogin = (

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import Navbar from '../components/Navigation/Navbar';
 import { handleLogin } from '../firebase/handlers/authHandlers';
 import { IInitStateUser } from '../redux/reducers/authReducer';
+import { toggleSpinner } from '../redux/reducers/spinnerReducer';
 
 const LoginPageWrapper = styled.div`
   display: flex;
@@ -53,6 +54,8 @@ const LoginPage = () => {
   const onLoginHandler = (e: any) => {
     e.preventDefault();
 
+    dispatch(toggleSpinner());
+
     if (emailRef.current?.value != null && passwordRef.current?.value != null) {
       handleLogin(
         emailRef.current?.value,
@@ -61,6 +64,8 @@ const LoginPage = () => {
         navigate
       );
     }
+
+    dispatch(toggleSpinner());
   };
 
   return (
