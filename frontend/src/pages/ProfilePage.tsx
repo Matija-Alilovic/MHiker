@@ -1,31 +1,36 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
-import { IInitStateUser } from "../redux/reducers/authReducer";
-import { useSelector } from "react-redux";
-import Image from "react-bootstrap/Image";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
+import { IInitStateUser } from '../redux/reducers/authReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import Image from 'react-bootstrap/Image';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import { Button, Card, Form, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { storage } from '../firebase/firebase';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
+import { toast } from 'react-toastify';
 
 import {
   FaFacebookMessenger,
   FaTwitter,
   FaInstagram,
   FaPlusCircle,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
-import Navbar from "../components/Navigation/Navbar";
-import profile_background from "../assets/img/profile/profile-page-background.jpg";
+import Navbar from '../components/Navigation/Navbar';
+import profile_background from '../assets/img/profile/profile-page-background.jpg';
 
-import trail5 from "../assets/img/trials/trial-5.jpg";
-import trail4 from "../assets/img/trials/trial-4.jpg";
-import trail3 from "../assets/img/trials/trial-3.jpg";
-import trail2 from "../assets/img/trials/trial-2.jpg";
-import trial from "../assets/img/trials/trial-1.jpg";
+import trail5 from '../assets/img/trials/trial-5.jpg';
+import trail4 from '../assets/img/trials/trial-4.jpg';
+import trail3 from '../assets/img/trials/trial-3.jpg';
+import trail2 from '../assets/img/trials/trial-2.jpg';
+import trial from '../assets/img/trials/trial-1.jpg';
 
-import user from "../assets/img/user.png";
-import { Button, Card, Form, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import user from '../assets/img/user.png';
+import { addTrails } from '../firebase/handlers/trailHandlers';
 
 const ProfileBackgroundImage = styled.img`
   object-fit: cover;
@@ -160,19 +165,48 @@ const EmptyCard = styled.div`
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const authData: IInitStateUser = useSelector((state: any) => state.auth);
 
   const [showModal, setShowModal] = useState(false);
+  const [file, setFile] = useState<any>();
 
-  const handleModalClose = () => setShowModal(false);
-  const handleModalShow = () => setShowModal(true);
+  const nameRef = useRef<HTMLInputElement | null>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const onAddTrailHandler = (event: any) => {
+  const onAddTrailHandler = async (event: any) => {
     event.preventDefault();
+
+    const image = ref(storage, `images/${file.name + v4()}`);
+
+    await uploadBytes(image, file);
+    toast('Image Uploaded!');
+
+    const downloadUrl = await getDownloadURL(image);
+    toast(downloadUrl.toString());
+
+    if (
+      nameRef.current?.value != null &&
+      descriptionRef.current?.value != null
+    ) {
+      addTrails(
+        authData.uid,
+        authData.username,
+        nameRef.current?.value,
+        descriptionRef.current?.value,
+        downloadUrl,
+        dispatch
+      );
+    }
+  };
+
+  const onFileAdd = (event: any) => {
+    setFile(event.target.files[0]);
   };
 
   useEffect(() => {
-    !authData.loggedIn && navigate("/login");
+    !authData.loggedIn && navigate('/login');
   }, []);
 
   return (
@@ -190,14 +224,14 @@ const ProfilePage = () => {
           </Left>
           <Right>
             <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
+              style={{ backgroundColor: 'var(--primary)', border: 'none' }}
             >
               Edit Profile
             </Button>
 
             <Dropdown>
               <Dropdown.Toggle
-                style={{ backgroundColor: "var(--primary)", border: "none" }}
+                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
               >
                 Options
               </Dropdown.Toggle>
@@ -213,19 +247,19 @@ const ProfilePage = () => {
           <BottomLeft>
             <Button
               style={{
-                backgroundColor: "var(--primary)",
-                border: "none",
+                backgroundColor: 'var(--primary)',
+                border: 'none',
               }}
             >
               <FaFacebookMessenger />
             </Button>
             <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
+              style={{ backgroundColor: 'var(--primary)', border: 'none' }}
             >
               <FaTwitter />
             </Button>
             <Button
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
+              style={{ backgroundColor: 'var(--primary)', border: 'none' }}
             >
               <FaInstagram />
             </Button>
@@ -255,15 +289,15 @@ const ProfilePage = () => {
 
                   <Button
                     style={{
-                      backgroundColor: "var(--primary)",
-                      border: "none",
+                      backgroundColor: 'var(--primary)',
+                      border: 'none',
                     }}
                   >
                     Discover
                   </Button>
                 </Card.Body>
               </TrailCard>
-              <EmptyCard onClick={handleModalShow}>
+              <EmptyCard onClick={() => setShowModal(true)}>
                 <FaPlusCircle />
                 <h2>Add Trail</h2>
               </EmptyCard>
@@ -272,7 +306,7 @@ const ProfilePage = () => {
         </Bottom>
       </ProfileWrapper>
 
-      <Modal show={showModal} onHide={handleModalClose}>
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Create Trail</Modal.Title>
         </Modal.Header>
@@ -280,11 +314,17 @@ const ProfilePage = () => {
           <Form validated={true} onSubmit={onAddTrailHandler}>
             <Form.Group className="mb-3">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter Name" required />
+              <Form.Control
+                ref={nameRef}
+                type="text"
+                placeholder="Enter Name"
+                required
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Description</Form.Label>
               <Form.Control
+                ref={descriptionRef}
                 as="textarea"
                 type="text"
                 placeholder="Description"
@@ -294,21 +334,22 @@ const ProfilePage = () => {
             <Form.Group className="mb-3">
               <Form.Label>Image</Form.Label>
               <Form.Control
+                onChange={onFileAdd}
                 type="file"
-                accept="image/png, image/gif, image/jpeg, image/webp"
+                accept="image/*"
                 required
               />
             </Form.Group>
             <Button
               type="submit"
-              style={{ backgroundColor: "var(--primary)", border: "none" }}
+              style={{ backgroundColor: 'var(--primary)', border: 'none' }}
             >
               Create
             </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleModalClose}>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
             Close
           </Button>
         </Modal.Footer>

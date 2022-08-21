@@ -1,13 +1,13 @@
-import { AnyAction } from "@reduxjs/toolkit";
-import { collection, addDoc, getDocs } from "firebase/firestore";
-import { Dispatch } from "react";
-import { setTrails } from "../../redux/reducers/trailReducer";
+import { AnyAction } from '@reduxjs/toolkit';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { Dispatch } from 'react';
+import { setTrails, addTrail } from '../../redux/reducers/trailReducer';
 
-import { db } from "../firebase";
+import { db } from '../firebase';
 
 const getTrails = (dispatch: Dispatch<AnyAction>) => {
   const getData = async () => {
-    const trailsCollectionRef = collection(db, "trails");
+    const trailsCollectionRef = collection(db, 'trails');
     const querySnapshot = await getDocs(trailsCollectionRef);
 
     const data: any = [];
@@ -15,7 +15,7 @@ const getTrails = (dispatch: Dispatch<AnyAction>) => {
     querySnapshot.forEach((doc: any) => {
       data.push({
         name: doc.data().name,
-        description: doc.data().desc,
+        description: doc.data().description,
         image: doc.data().image,
       });
     });
@@ -26,4 +26,38 @@ const getTrails = (dispatch: Dispatch<AnyAction>) => {
   getData();
 };
 
-export { getTrails };
+const addTrails = (
+  uid: string,
+  username: string,
+  name: string,
+  description: string,
+  image: string,
+  dispatch: Dispatch<AnyAction>
+) => {
+  const addData = async () => {
+    const trailsCollectionRef = collection(db, 'trails');
+
+    await addDoc(trailsCollectionRef, {
+      uid,
+      username,
+      name,
+      description,
+      image,
+    });
+
+    dispatch(
+      addTrail({
+        uid,
+        username,
+        name,
+        description,
+        image,
+      })
+    );
+  };
+
+  addData();
+  getTrails(dispatch);
+};
+
+export { getTrails, addTrails };

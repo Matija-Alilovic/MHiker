@@ -1,23 +1,23 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
-import Footer from "../components/Footer/Footer";
-import Navbar from "../components/Navigation/Navbar";
-import SearchBox from "../components/Navigation/SearchBox";
-import Category from "../components/reusable/Category";
+import Footer from '../components/Footer/Footer';
+import Navbar from '../components/Navigation/Navbar';
+import SearchBox from '../components/Navigation/SearchBox';
+import Category from '../components/reusable/Category';
 
-import trail5 from "../assets/img/trials/trial-5.jpg";
-import trail4 from "../assets/img/trials/trial-4.jpg";
-import trail3 from "../assets/img/trials/trial-3.jpg";
-import trail2 from "../assets/img/trials/trial-2.jpg";
-import trial from "../assets/img/trials/trial-1.jpg";
-import user from "../assets/img/user.png";
+import trail5 from '../assets/img/trials/trial-5.jpg';
+import trail4 from '../assets/img/trials/trial-4.jpg';
+import trail3 from '../assets/img/trials/trial-3.jpg';
+import trail2 from '../assets/img/trials/trial-2.jpg';
+import trial from '../assets/img/trials/trial-1.jpg';
+import user from '../assets/img/user.png';
 
-import { Button, Card } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
-import { getTrails } from "../firebase/handlers/trailHandlers";
-import { useDispatch, useSelector } from "react-redux";
-import { IInitStateTrail } from "../redux/reducers/trailReducer";
+import { Button, Card } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
+import { getTrails } from '../firebase/handlers/trailHandlers';
+import { useDispatch, useSelector } from 'react-redux';
+import { IInitStateTrail } from '../redux/reducers/trailReducer';
 
 const Wrapper = styled.div``;
 
@@ -109,11 +109,11 @@ const ExplorePage = () => {
         Categories <br />
         <span>Select Correct Category</span>
         <Categories>
-          <Category key={1} name={"All"} img={trail2} categoryValue={1} />
-          <Category key={1} name={"America"} img={trail2} categoryValue={1} />
-          <Category key={1} name={"India"} img={trail2} categoryValue={1} />
-          <Category key={1} name={"Serbia"} img={trail2} categoryValue={1} />
-          <Category key={1} name={"Indijska"} img={trail2} categoryValue={1} />
+          <Category key={1} name={'All'} img={trail2} categoryValue={1} />
+          <Category key={1} name={'America'} img={trail2} categoryValue={1} />
+          <Category key={1} name={'India'} img={trail2} categoryValue={1} />
+          <Category key={1} name={'Serbia'} img={trail2} categoryValue={1} />
+          <Category key={1} name={'Indijska'} img={trail2} categoryValue={1} />
         </Categories>
       </Title>
       <Trails>
@@ -124,13 +124,12 @@ const ExplorePage = () => {
               <Card.Text>
                 <Image fluid rounded src={user} width="50px" height="50px" />
                 &nbsp; &nbsp;
-                <b>Matija Alilović</b>
+                <b>{item.username}</b>
               </Card.Text>
               <Card.Title>{item.name}</Card.Title>
               <Card.Text>{item.description}</Card.Text>
-
               <Button
-                style={{ backgroundColor: "var(--primary)", border: "none" }}
+                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
               >
                 Discover
               </Button>
