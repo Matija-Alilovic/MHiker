@@ -7,7 +7,6 @@ import illustration from '../../assets/img/illustrations/looking.svg';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
-  background-color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -21,7 +20,7 @@ const Wrapper = styled.div`
   padding: 100px;
   z-index: 6;
 
-  transition: all 0.25s;
+  transition: all 0.45s cubic-bezier(0.98, -0.25, 0.265, 1.25);
 
   opacity: 0;
   visibility: hidden;
@@ -71,6 +70,10 @@ const SideMenu: React.FC<Props> = ({ sideMenuActive }) => {
       style={{
         opacity: `${sideMenuActive ? '1' : '0'}`,
         visibility: `${sideMenuActive ? 'visible' : 'hidden'}`,
+        transform: `${
+          sideMenuActive ? 'translateX(0px)' : 'translate(50%, -50%)'
+        }`,
+        backgroundColor: `${sideMenuActive ? 'var(--primary)' : 'white'}`,
       }}
     >
       <MenuList>

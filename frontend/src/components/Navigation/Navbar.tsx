@@ -16,6 +16,7 @@ import Image from 'react-bootstrap/Image';
 import { useDispatch, useSelector } from 'react-redux';
 import { IInitStateUser, logOut } from '../../redux/reducers/authReducer';
 import { Dropdown } from 'react-bootstrap';
+import { handleSignOut } from '../../firebase/handlers/authHandlers';
 
 const Wrapper = styled.div`
   display: flex;
@@ -136,7 +137,7 @@ const Navbar: React.FC<Props> = ({ children }) => {
               </Dropdown.Item>
               <Dropdown.Item
                 onClick={() => {
-                  dispatch(logOut());
+                  handleSignOut(dispatch, navigate);
                 }}
               >
                 Sign out

@@ -82,10 +82,14 @@ const handleLogin = (
     });
 };
 
-const handleSignOut = (dispatch: Dispatch<AnyAction>) => {
+const handleSignOut = (
+  dispatch: Dispatch<AnyAction>,
+  navigate: NavigateFunction
+) => {
   signOut(auth)
     .then(() => {
       dispatch(logOut());
+      navigate('/');
     })
     .catch((error) => {
       dispatch(setErrorMessage({ errorMessage: error.message }));
