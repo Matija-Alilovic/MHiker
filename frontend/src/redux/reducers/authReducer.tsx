@@ -11,6 +11,7 @@ export interface IInitStateUser {
   photoUrl: string;
   loggedIn: boolean;
   errorMessage: string;
+  trails: Array<any>;
 }
 
 const initialState: IInitStateUser = {
@@ -20,6 +21,7 @@ const initialState: IInitStateUser = {
   photoUrl: '',
   loggedIn: false,
   errorMessage: '',
+  trails: [],
 };
 
 const authSlice = createSlice({
@@ -46,9 +48,13 @@ const authSlice = createSlice({
     setErrorMessage(state: IInitStateUser, action: PayloadAction<any>) {
       state.errorMessage = action.payload.errorMessage;
     },
+    setAuthTrails(state: IInitStateUser, action: PayloadAction<any>) {
+      state.trails = action.payload;
+    },
   },
 });
 
-export const { signIn, logOut, setErrorMessage } = authSlice.actions;
+export const { signIn, logOut, setErrorMessage, setAuthTrails } =
+  authSlice.actions;
 
 export default authSlice.reducer;

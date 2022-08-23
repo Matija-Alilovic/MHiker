@@ -32,6 +32,11 @@ import trial from '../assets/img/trials/trial-1.jpg';
 import user from '../assets/img/user.png';
 import { addTrails } from '../firebase/handlers/trailHandlers';
 import { toggleSpinner } from '../redux/reducers/spinnerReducer';
+import {
+  handleDeleteProfileTrail,
+  handleGetProfileTrails,
+} from '../firebase/handlers/authHandlers';
+import { ITrail } from '../redux/reducers/trailReducer';
 
 const ProfileBackgroundImage = styled.img`
   object-fit: cover;
@@ -95,7 +100,6 @@ const Right = styled.div`
 const Bottom = styled.div`
   padding: 2rem 9rem;
   display: flex;
-  flex-wrap: wrap;
   gap: 12rem;
 `;
 
@@ -132,6 +136,13 @@ const TrailCard = styled(Card)`
   width: 22rem;
   border: none;
   box-shadow: rgba(100, 100, 111, 0.12) 0px 7px 29px 0px;
+  position: relative;
+`;
+
+const TrailCardDropDownMenu = styled(Dropdown)`
+  position: absolute;
+  right: 5px;
+  top: 5px;
 `;
 
 const TrailCardImage = styled(Card.Img)`
@@ -177,6 +188,10 @@ const ProfilePage = () => {
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
 
+  useEffect(() => {
+    handleGetProfileTrails(authData.uid, dispatch);
+  }, []);
+
   const onAddTrailHandler = async (event: any) => {
     event.preventDefault();
 
@@ -203,6 +218,8 @@ const ProfilePage = () => {
     }
 
     toast('Sucessfully Created Trail Post!');
+    handleGetProfileTrails(authData.uid, dispatch);
+
     dispatch(toggleSpinner());
   };
 
@@ -276,6 +293,57 @@ const ProfilePage = () => {
                 <FaPlusCircle />
                 <h2>Add Trail</h2>
               </EmptyCard>
+              {authData.trails.map((item: ITrail) => (
+                <TrailCard>
+                  <TrailCardImage variant="top" src={item.image} />
+                  <Card.Body>
+                    <Card.Text>
+                      <Image
+                        fluid
+                        rounded
+                        src={authData.photoUrl}
+                        width="50px"
+                        height="50px"
+                      />
+                      &nbsp; &nbsp;
+                      <b>{item.username}</b>
+                    </Card.Text>
+                    <Card.Title>{item.name}</Card.Title>
+                    <Card.Text>{item.description}</Card.Text>
+                    <Button
+                      style={{
+                        backgroundColor: 'var(--primary)',
+                        border: 'none',
+                      }}
+                    >
+                      Discover
+                    </Button>
+                  </Card.Body>
+                  <TrailCardDropDownMenu>
+                    <Dropdown.Toggle
+                      style={{
+                        backgroundColor: 'var(--primary)',
+                        border: 'none',
+                        height: '35px',
+                        width: '36px',
+                      }}
+                      id="dropdown-basic"
+                    ></Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        onClick={() => {
+                          console.log(item.id);
+                          handleDeleteProfileTrail(item.id, item.uid, dispatch);
+                        }}
+                      >
+                        Delete
+                      </Dropdown.Item>
+                      <Dropdown.Item>Edit</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </TrailCardDropDownMenu>
+                </TrailCard>
+              ))}
             </Trails>
           </BottomRight>
         </Bottom>

@@ -15,9 +15,16 @@ const spinnerSlice = createSlice({
     toggleSpinner(state: IInitSpinnerState) {
       state.active = !state.active;
     },
+    setSpinnerActive(state: IInitSpinnerState) {
+      state.active = true;
+    },
+    setSpinnerDisable(state: IInitSpinnerState) {
+      state.active = false;
+    },
   },
 });
 
-export const { toggleSpinner } = spinnerSlice.actions;
+export const { toggleSpinner, setSpinnerActive, setSpinnerDisable } =
+  spinnerSlice.actions;
 
 export default spinnerSlice.reducer;

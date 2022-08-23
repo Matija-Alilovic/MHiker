@@ -17,7 +17,8 @@ import { Button, Card } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import { getTrails } from '../firebase/handlers/trailHandlers';
 import { useDispatch, useSelector } from 'react-redux';
-import { IInitStateTrail } from '../redux/reducers/trailReducer';
+import { IInitStateTrail, ITrail } from '../redux/reducers/trailReducer';
+import { toggleSpinner } from '../redux/reducers/spinnerReducer';
 
 const Wrapper = styled.div``;
 
@@ -117,8 +118,8 @@ const ExplorePage = () => {
         </Categories>
       </Title>
       <Trails>
-        {trailData.items.map((item) => (
-          <TrailCard>
+        {trailData.items.map((item: ITrail) => (
+          <TrailCard key={item.id}>
             <TrailCardImage variant="top" src={item.image} />
             <Card.Body>
               <Card.Text>

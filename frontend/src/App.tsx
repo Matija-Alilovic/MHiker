@@ -27,6 +27,11 @@ const Loader = styled(Spinner)`
   height: 500px;
 
   color: var(--primary);
+
+  @media only screen and (min-width: 1224px) {
+    top: 30%;
+    left: 35%;
+  }
 `;
 
 function App() {

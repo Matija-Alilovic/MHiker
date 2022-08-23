@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import familyHiking from '../assets/img/illustrations/mainPage.svg';
 import newsletterImg from '../assets/img/illustrations/newsletter.svg';
+import relaxingImg from '../assets/img/illustrations/relaxing.svg';
 import trial from '../assets/img/trials/trial-1.jpg';
 import user from '../assets/img/user.png';
 import testimonialFace from '../assets/img/profile/testimonial-face.jpg';
@@ -11,8 +12,9 @@ import testimonialFace2 from '../assets/img/profile/testimonial-face2.jpg';
 
 import { MdArrowRightAlt, MdStarBorder } from 'react-icons/md';
 
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaFlag, FaCcPaypal, FaCalendarAlt } from 'react-icons/fa';
 
+import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
@@ -58,6 +60,87 @@ const Left = styled.div`
 
 const Right = styled.div`
   flex: 1;
+`;
+
+const BookTrip = styled.div`
+  padding: 2rem 4rem;
+  padding-bottom: 15rem;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  flex-direction: column;
+
+  img {
+    width: 90%;
+  }
+
+  /* Desktops and laptops ----------- */
+  @media only screen and (min-width: 1224px) {
+    padding: 2rem 12rem;
+    padding-bottom: 10rem;
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    gap: 6rem;
+
+    img {
+      width: 42rem;
+    }
+  }
+`;
+
+const BookTripHeader = styled.div`
+  margin-bottom: 2rem;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  h2 {
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-left: -2px;
+  }
+
+  span {
+    margin-bottom: 0.6rem;
+    display: block;
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  p {
+    color: var(--text-silver);
+  }
+`;
+
+const BookTripItem = styled.div`
+  color: var(--primary);
+
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+`;
+
+const BookTripItemText = styled.div`
+  span {
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: var(--primary);
+  }
+
+  p {
+    margin: 0;
+  }
 `;
 
 const ExploreNow = styled.div`
@@ -144,9 +227,11 @@ const Header = styled.div`
 
   h2 {
     font-size: 2.8rem;
+    margin-left: -2px;
   }
 
   span {
+    margin-bottom: 0.6rem;
     display: block;
     font-size: 1rem;
     color: #dfdfdf;
@@ -173,7 +258,7 @@ const TrailCardImage = styled(Card.Img)`
 `;
 
 const Testimonials = styled.div`
-  padding: 4rem 12rem;
+  padding: 10rem 12rem;
 
   @media only screen and (max-width: 900px) {
     padding: 4rem 0rem;
@@ -190,6 +275,8 @@ const TestimonialHeader = styled.header`
   }
 
   span {
+    margin-bottom: 0.6rem;
+
     display: block;
     font-size: 1rem;
     color: var(--text);
@@ -300,13 +387,77 @@ const HomePage = () => {
           <img src={familyHiking} alt="Error when loading photo" />
         </Right>
       </Main>
+      <BookTrip data-aos="fade-up">
+        <BookTripHeader>
+          <span>Easy and fast</span>
+          <h2>Book Next Trip in 3 Easy Steps</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+            dolorum nostrum quas, magnam voluptate iusto obcaecati sed placeat,
+            esse exercitationem similique a sit! Porro dolore, eius vero quas
+            nesciunt sit.
+          </p>
+          <BookTripItem>
+            <Badge
+              bg="var(--primary)"
+              style={{
+                backgroundColor: 'var(--primary)',
+                color: 'white',
+                padding: '0.9rem',
+                fontSize: '1.1rem',
+              }}
+            >
+              <FaFlag />
+            </Badge>
+            <BookTripItemText>
+              <span>Choose your destionation</span>
+              <p>There are over 100 000 destinations</p>
+            </BookTripItemText>
+          </BookTripItem>
+          <BookTripItem>
+            <Badge
+              bg="var(--primary)"
+              style={{
+                backgroundColor: 'var(--primary)',
+                color: 'white',
+                padding: '0.7rem',
+                fontSize: '1.6rem',
+              }}
+            >
+              <FaCcPaypal style={{ margin: '0' }} />
+            </Badge>
+            <BookTripItemText>
+              <span>Make payment</span>
+              <p>Choose any payment method</p>
+            </BookTripItemText>
+          </BookTripItem>
+          <BookTripItem>
+            <Badge
+              bg="var(--primary)"
+              style={{
+                backgroundColor: 'var(--primary)',
+                color: 'white',
+                padding: '1rem',
+                fontSize: '1.1rem',
+              }}
+            >
+              <FaCalendarAlt />
+            </Badge>
+            <BookTripItemText>
+              <span>Reach airport on selected day</span>
+              <p>We are partnered with all airlines</p>
+            </BookTripItemText>
+          </BookTripItem>
+        </BookTripHeader>
+        <img src={relaxingImg} alt="" />
+      </BookTrip>
       <DiscoverTrails data-aos="fade-up">
         <Header>
           <span>Reviews will help you choose</span>
           <h2>Discover trails</h2>
         </Header>
         <TrailList>
-          <TrailCard>
+          <TrailCard data-aos="fade-down">
             <TrailCardImage variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -330,7 +481,7 @@ const HomePage = () => {
               </Button>
             </Card.Body>
           </TrailCard>
-          <TrailCard>
+          <TrailCard data-aos="fade-down">
             <TrailCardImage variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -354,7 +505,7 @@ const HomePage = () => {
               </Button>
             </Card.Body>
           </TrailCard>
-          <TrailCard>
+          <TrailCard data-aos="fade-down">
             <TrailCardImage variant="top" src={trial} />
             <Card.Body>
               <Card.Text>
@@ -414,7 +565,7 @@ const HomePage = () => {
         <TestimonialList>
           <TestimonialCard>
             <Card.Body>
-              <Card.Title>
+              <Card.Title style={{ color: 'var(--primary)' }}>
                 <Image
                   fluid
                   roundedCircle
@@ -441,7 +592,7 @@ const HomePage = () => {
           </TestimonialCard>
           <TestimonialCard>
             <Card.Body>
-              <Card.Title>
+              <Card.Title style={{ color: 'var(--primary)' }}>
                 <Image
                   fluid
                   roundedCircle
@@ -468,7 +619,7 @@ const HomePage = () => {
           </TestimonialCard>
           <TestimonialCard>
             <Card.Body>
-              <Card.Title>
+              <Card.Title style={{ color: 'var(--primary)' }}>
                 <Image
                   fluid
                   roundedCircle
@@ -495,7 +646,7 @@ const HomePage = () => {
           </TestimonialCard>
           <TestimonialCard>
             <Card.Body>
-              <Card.Title>
+              <Card.Title style={{ color: 'var(--primary)' }}>
                 <Image
                   fluid
                   roundedCircle

@@ -23,11 +23,11 @@ const Wrapper = styled.div`
   justify-content: space-between;
   gap: 2rem;
   background-color: white;
-  padding-top: 30px;
+  padding-top: 2rem;
   top: 0;
   position: fixed;
   width: 100%;
-  padding: 25px 50px;
+  padding: 2rem 3rem;
   z-index: 2;
 `;
 

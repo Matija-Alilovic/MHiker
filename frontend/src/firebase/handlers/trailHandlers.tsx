@@ -1,19 +1,26 @@
 import { AnyAction } from '@reduxjs/toolkit';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { Dispatch } from 'react';
-import { setTrails, addTrail } from '../../redux/reducers/trailReducer';
+import {
+  setSpinnerActive,
+  setSpinnerDisable,
+  toggleSpinner,
+} from '../../redux/reducers/spinnerReducer';
+import { setTrails, addTrail, ITrail } from '../../redux/reducers/trailReducer';
 
 import { db } from '../firebase';
 
 const getTrails = (dispatch: Dispatch<AnyAction>) => {
   const getData = async () => {
+    dispatch(setSpinnerActive());
     const trailsCollectionRef = collection(db, 'trails');
     const querySnapshot = await getDocs(trailsCollectionRef);
 
-    const data: any = [];
+    const data: Array<ITrail> = [];
 
     querySnapshot.forEach((doc: any) => {
       data.push({
+        id: doc.id,
         uid: doc.data().uid,
         username: doc.data().username,
         name: doc.data().name,
@@ -23,6 +30,7 @@ const getTrails = (dispatch: Dispatch<AnyAction>) => {
     });
 
     dispatch(setTrails(data));
+    dispatch(setSpinnerDisable());
   };
 
   getData();

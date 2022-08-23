@@ -1,4 +1,4 @@
-import { auth, provider } from '../firebase';
+import { auth, db, provider } from '../firebase';
 import {
   signOut,
   createUserWithEmailAndPassword,
@@ -14,7 +14,10 @@ import {
   signIn,
   setErrorMessage,
   logOut,
+  setAuthTrails,
 } from '../../redux/reducers/authReducer';
+import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { ITrail } from '../../redux/reducers/trailReducer';
 
 const handleRegister = (
   email: string,
@@ -70,7 +73,7 @@ const handleLogin = (
         })
       );
 
-      navigate('/');
+      navigate('/profile');
     })
     .catch((error) => {
       const errorMessage = error.message;
@@ -89,4 +92,51 @@ const handleSignOut = (dispatch: Dispatch<AnyAction>) => {
     });
 };
 
-export { handleRegister, handleLogin, handleSignOut };
+const handleGetProfileTrails = (uid: string, dispatch: Dispatch<AnyAction>) => {
+  const getProfileTrails = async () => {
+    const querySnapshot = await getDocs(collection(db, 'trails'));
+
+    const data: Array<ITrail> = [];
+
+    querySnapshot.forEach((doc: any) => {
+      if (doc.data().uid === uid) {
+        data.push({
+          id: doc.id,
+          uid: doc.data().uid,
+          username: doc.data().username,
+          name: doc.data().name,
+          description: doc.data().description,
+          image: doc.data().image,
+        });
+      }
+    });
+
+    dispatch(setAuthTrails(data));
+  };
+
+  getProfileTrails();
+};
+
+const handleDeleteProfileTrail = (
+  id: string,
+  uid: string,
+  dispatch: Dispatch<AnyAction>
+) => {
+  const deleteProfileTrail = async () => {
+    const ref = doc(db, 'trails', id);
+
+    await deleteDoc(ref);
+
+    handleGetProfileTrails(uid, dispatch);
+  };
+
+  deleteProfileTrail();
+};
+
+export {
+  handleRegister,
+  handleLogin,
+  handleSignOut,
+  handleGetProfileTrails,
+  handleDeleteProfileTrail,
+};
