@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   top: 0;
   position: fixed;
   width: 100%;
-  padding: 2rem 3rem;
+  padding: 1.2rem 3rem;
   z-index: 2;
 `;
 

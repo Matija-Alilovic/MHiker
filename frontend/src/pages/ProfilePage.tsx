@@ -134,6 +134,8 @@ const Trails = styled.div`
 
 const TrailCard = styled(Card)`
   width: 22rem;
+  height: 30rem;
+
   border: none;
   box-shadow: rgba(100, 100, 111, 0.12) 0px 7px 29px 0px;
   position: relative;
@@ -315,6 +317,9 @@ const ProfilePage = () => {
                         backgroundColor: 'var(--primary)',
                         border: 'none',
                       }}
+                      onClick={() => {
+                        navigate(`/trail/${item.id}`);
+                      }}
                     >
                       Discover
                     </Button>
@@ -333,7 +338,6 @@ const ProfilePage = () => {
                     <Dropdown.Menu>
                       <Dropdown.Item
                         onClick={() => {
-                          console.log(item.id);
                           handleDeleteProfileTrail(item.id, item.uid, dispatch);
                         }}
                       >
@@ -370,6 +374,7 @@ const ProfilePage = () => {
                 as="textarea"
                 type="text"
                 placeholder="Description"
+                maxLength={40}
                 required
               />
             </Form.Group>

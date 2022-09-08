@@ -1,12 +1,17 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, getDoc, doc } from 'firebase/firestore';
 import { Dispatch } from 'react';
 import {
   setSpinnerActive,
   setSpinnerDisable,
   toggleSpinner,
 } from '../../redux/reducers/spinnerReducer';
-import { setTrails, addTrail, ITrail } from '../../redux/reducers/trailReducer';
+import {
+  setTrails,
+  addTrail,
+  ITrail,
+  setCurrentTrail,
+} from '../../redux/reducers/trailReducer';
 
 import { db } from '../firebase';
 
@@ -70,4 +75,25 @@ const addTrails = (
   getTrails(dispatch);
 };
 
-export { getTrails, addTrails };
+const getTrailById = (id: string, dispatch: Dispatch<AnyAction>) => {
+  const getData = async () => {
+    dispatch(setSpinnerActive());
+
+    const trailsCollectionRef = doc(db, 'trails', id);
+
+    const singleDocument = await getDoc(trailsCollectionRef);
+
+    if (singleDocument.exists()) {
+      const data = singleDocument.data();
+      dispatch(setCurrentTrail(data));
+
+      dispatch(setSpinnerDisable());
+    } else {
+      //no such page
+    }
+  };
+
+  getData();
+};
+
+export { getTrails, addTrails, getTrailById };

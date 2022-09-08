@@ -18,6 +18,7 @@ import {
 } from '../../redux/reducers/authReducer';
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { ITrail } from '../../redux/reducers/trailReducer';
+import { toast } from 'react-toastify';
 
 const handleRegister = (
   email: string,
@@ -135,6 +136,7 @@ const handleDeleteProfileTrail = (
   };
 
   deleteProfileTrail();
+  toast('Deleted Trail');
 };
 
 export {

@@ -14,11 +14,13 @@ export interface ITrail {
 export interface IInitStateTrail {
   isLoading: boolean;
   items: ITrail[];
+  currentTrail: ITrail;
 }
 
 const initialState: IInitStateTrail = {
   isLoading: false,
   items: [],
+  currentTrail: {} as ITrail,
 };
 
 const authSlice = createSlice({
@@ -31,9 +33,12 @@ const authSlice = createSlice({
     setTrails(state: IInitStateTrail, action) {
       state.items = action.payload;
     },
+    setCurrentTrail(state: IInitStateTrail, action) {
+      state.currentTrail = action.payload;
+    },
   },
 });
 
-export const { addTrail, setTrails } = authSlice.actions;
+export const { addTrail, setTrails, setCurrentTrail } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -19,6 +19,7 @@ import { getTrails } from '../firebase/handlers/trailHandlers';
 import { useDispatch, useSelector } from 'react-redux';
 import { IInitStateTrail, ITrail } from '../redux/reducers/trailReducer';
 import { toggleSpinner } from '../redux/reducers/spinnerReducer';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div``;
 
@@ -91,6 +92,7 @@ const TrailCardImage = styled(Card.Img)`
 
 const ExplorePage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const trailData: IInitStateTrail = useSelector((state: any) => state.trails);
 
   useEffect(() => {
@@ -131,6 +133,9 @@ const ExplorePage = () => {
               <Card.Text>{item.description}</Card.Text>
               <Button
                 style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+                onClick={() => {
+                  navigate(`/trail/${item.id}`);
+                }}
               >
                 Discover
               </Button>
