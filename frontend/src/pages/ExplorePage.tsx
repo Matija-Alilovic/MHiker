@@ -94,6 +94,7 @@ const ExplorePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const trailData: IInitStateTrail = useSelector((state: any) => state.trails);
+  const spinnerData = useSelector((state: any) => state.spinner);
 
   useEffect(() => {
     getTrails(dispatch);
@@ -101,49 +102,77 @@ const ExplorePage = () => {
 
   return (
     <>
-      <Navbar>
-        <SearchBox />
-      </Navbar>
-      <Header>
-        <span>Reviews will help you choose</span>
-        <h2>Discover Trails</h2>
-      </Header>
-      <Title>
-        Categories <br />
-        <span>Select Correct Category</span>
-        <Categories>
-          <Category key={1} name={'All'} img={trail2} categoryValue={1} />
-          <Category key={1} name={'America'} img={trail2} categoryValue={1} />
-          <Category key={1} name={'India'} img={trail2} categoryValue={1} />
-          <Category key={1} name={'Serbia'} img={trail2} categoryValue={1} />
-          <Category key={1} name={'Indijska'} img={trail2} categoryValue={1} />
-        </Categories>
-      </Title>
-      <Trails>
-        {trailData.items.map((item: ITrail) => (
-          <TrailCard key={item.id}>
-            <TrailCardImage variant="top" src={item.image} />
-            <Card.Body>
-              <Card.Text>
-                <Image fluid rounded src={user} width="50px" height="50px" />
-                &nbsp; &nbsp;
-                <b>{item.username}</b>
-              </Card.Text>
-              <Card.Title>{item.name}</Card.Title>
-              <Card.Text>{item.description}</Card.Text>
-              <Button
-                style={{ backgroundColor: 'var(--primary)', border: 'none' }}
-                onClick={() => {
-                  navigate(`/trail/${item.id}`);
-                }}
-              >
-                Discover
-              </Button>
-            </Card.Body>
-          </TrailCard>
-        ))}
-      </Trails>
-      <Footer />
+      {spinnerData.active == false && (
+        <>
+          <Navbar>
+            <SearchBox />
+          </Navbar>
+          <Header>
+            <span>Reviews will help you choose</span>
+            <h2>Discover Trails</h2>
+          </Header>
+          <Title>
+            Categories <br />
+            <span>Select Correct Category</span>
+            <Categories>
+              <Category key={1} name={'All'} img={trail2} categoryValue={1} />
+              <Category
+                key={1}
+                name={'America'}
+                img={trail2}
+                categoryValue={1}
+              />
+              <Category key={1} name={'India'} img={trail2} categoryValue={1} />
+              <Category
+                key={1}
+                name={'Serbia'}
+                img={trail2}
+                categoryValue={1}
+              />
+              <Category
+                key={1}
+                name={'Indijska'}
+                img={trail2}
+                categoryValue={1}
+              />
+            </Categories>
+          </Title>
+          <Trails>
+            {trailData.items.map((item: ITrail) => (
+              <TrailCard key={item.id}>
+                <TrailCardImage variant="top" src={item.images[0]} />
+                <Card.Body>
+                  <Card.Text>
+                    <Image
+                      fluid
+                      rounded
+                      src={user}
+                      width="50px"
+                      height="50px"
+                    />
+                    &nbsp; &nbsp;
+                    <b>{item.username}</b>
+                  </Card.Text>
+                  <Card.Title>{item.name}</Card.Title>
+                  <Card.Text>{item.description}</Card.Text>
+                  <Button
+                    style={{
+                      backgroundColor: 'var(--primary)',
+                      border: 'none',
+                    }}
+                    onClick={() => {
+                      navigate(`/trail/${item.id}`);
+                    }}
+                  >
+                    Discover
+                  </Button>
+                </Card.Body>
+              </TrailCard>
+            ))}
+          </Trails>
+          <Footer />
+        </>
+      )}
     </>
   );
 };

@@ -111,7 +111,8 @@ const handleGetProfileTrails = (uid: string, dispatch: Dispatch<AnyAction>) => {
           username: doc.data().username,
           name: doc.data().name,
           description: doc.data().description,
-          image: doc.data().image,
+          images: doc.data().images,
+          comments: doc.data().comments,
         });
       }
     });

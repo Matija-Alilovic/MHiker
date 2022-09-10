@@ -185,25 +185,31 @@ const ProfilePage = () => {
   const authData: IInitStateUser = useSelector((state: any) => state.auth);
 
   const [showModal, setShowModal] = useState(false);
-  const [file, setFile] = useState<any>();
+  const [files, setFile] = useState<any>();
 
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
-
-  useEffect(() => {
-    handleGetProfileTrails(authData.uid, dispatch);
-  }, []);
 
   const onAddTrailHandler = async (event: any) => {
     event.preventDefault();
 
     dispatch(toggleSpinner());
 
-    const image = ref(storage, `images/${file.name + v4()}`);
+    const urlArray = [];
 
-    await uploadBytes(image, file);
+    for (let index = 0; index < 4; index++) {
+      if (files[index] !== undefined) {
+        const image = ref(storage, `images/${files[index].name + v4()}`);
 
-    const downloadUrl = await getDownloadURL(image);
+        await uploadBytes(image, files[index]);
+
+        const downloadUrl = await getDownloadURL(image);
+
+        urlArray.push(downloadUrl);
+      }
+    }
+
+    const emptyArray: any = [];
 
     if (
       nameRef.current?.value != null &&
@@ -214,7 +220,8 @@ const ProfilePage = () => {
         authData.username,
         nameRef.current?.value,
         descriptionRef.current?.value,
-        downloadUrl,
+        urlArray,
+        emptyArray,
         dispatch
       );
     }
@@ -226,10 +233,11 @@ const ProfilePage = () => {
   };
 
   const onFileAdd = (event: any) => {
-    setFile(event.target.files[0]);
+    setFile(event.target.files);
   };
 
   useEffect(() => {
+    handleGetProfileTrails(authData.uid, dispatch);
     !authData.loggedIn && navigate('/login');
   }, []);
 
@@ -297,7 +305,7 @@ const ProfilePage = () => {
               </EmptyCard>
               {authData.trails.map((item: ITrail) => (
                 <TrailCard>
-                  <TrailCardImage variant="top" src={item.image} />
+                  <TrailCardImage variant="top" src={item.images[0]} />
                   <Card.Body>
                     <Card.Text>
                       <Image
@@ -379,12 +387,14 @@ const ProfilePage = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Image</Form.Label>
+              <Form.Label>Image (up to 4 images)</Form.Label>
               <Form.Control
                 onChange={onFileAdd}
                 type="file"
                 accept="image/*"
                 required
+                multiple
+                maxLength={4}
               />
             </Form.Group>
             <Button

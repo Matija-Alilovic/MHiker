@@ -1,5 +1,12 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { collection, addDoc, getDocs, getDoc, doc } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  doc,
+  setDoc,
+} from 'firebase/firestore';
 import { Dispatch } from 'react';
 import {
   setSpinnerActive,
@@ -11,6 +18,7 @@ import {
   addTrail,
   ITrail,
   setCurrentTrail,
+  IComment,
 } from '../../redux/reducers/trailReducer';
 
 import { db } from '../firebase';
@@ -18,6 +26,7 @@ import { db } from '../firebase';
 const getTrails = (dispatch: Dispatch<AnyAction>) => {
   const getData = async () => {
     dispatch(setSpinnerActive());
+
     const trailsCollectionRef = collection(db, 'trails');
     const querySnapshot = await getDocs(trailsCollectionRef);
 
@@ -30,7 +39,8 @@ const getTrails = (dispatch: Dispatch<AnyAction>) => {
         username: doc.data().username,
         name: doc.data().name,
         description: doc.data().description,
-        image: doc.data().image,
+        images: doc.data().images,
+        comments: doc.data().comments,
       });
     });
 
@@ -46,7 +56,8 @@ const addTrails = (
   username: string,
   name: string,
   description: string,
-  image: string,
+  images: Array<string>,
+  comments: Array<any>,
   dispatch: Dispatch<AnyAction>
 ) => {
   const addData = async () => {
@@ -57,7 +68,8 @@ const addTrails = (
       username,
       name,
       description,
-      image,
+      images,
+      comments,
     });
 
     dispatch(
@@ -66,7 +78,8 @@ const addTrails = (
         username,
         name,
         description,
-        image,
+        images,
+        comments,
       })
     );
   };
@@ -85,15 +98,34 @@ const getTrailById = (id: string, dispatch: Dispatch<AnyAction>) => {
 
     if (singleDocument.exists()) {
       const data = singleDocument.data();
-      dispatch(setCurrentTrail(data));
 
+      dispatch(setCurrentTrail(data));
       dispatch(setSpinnerDisable());
     } else {
       //no such page
+      console.log('No such page');
     }
   };
 
   getData();
 };
 
-export { getTrails, addTrails, getTrailById };
+const updateTrailById = (
+  id: string,
+  data: any,
+  dispatch: Dispatch<AnyAction>
+) => {
+  const updateData = async () => {
+    dispatch(setSpinnerActive());
+    console.log('ID:', id);
+    const trailsCollectionRef = doc(db, 'trails', id);
+
+    await setDoc(trailsCollectionRef, data);
+
+    dispatch(setSpinnerDisable());
+  };
+
+  updateData();
+};
+
+export { getTrails, addTrails, getTrailById, updateTrailById };

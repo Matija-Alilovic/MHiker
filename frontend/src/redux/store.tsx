@@ -1,4 +1,8 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  configureStore,
+  getDefaultMiddleware,
+} from '@reduxjs/toolkit';
 import thunkMiddleware from 'redux-thunk';
 
 import authReducer from './reducers/authReducer';
@@ -34,4 +38,9 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }),
 });
