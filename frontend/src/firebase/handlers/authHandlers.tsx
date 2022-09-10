@@ -20,6 +20,8 @@ import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { ITrail } from '../../redux/reducers/trailReducer';
 import { toast } from 'react-toastify';
 
+import user from '../../assets/img/user.png';
+
 const handleRegister = (
   email: string,
   password: string,
@@ -31,19 +33,23 @@ const handleRegister = (
     .then((userCredential) => {
       const user = userCredential.user;
 
+      if (auth.currentUser != null) {
+        updateProfile(auth.currentUser, {
+          displayName: username,
+          photoURL:
+            'https://firebasestorage.googleapis.com/v0/b/m-hiker.appspot.com/o/images%2Fuser.png?alt=media&token=ef042fe4-cc98-49a5-b57c-a17d48c3037b',
+        });
+      }
+
       dispatch(
         signIn({
           uid: user.uid,
           username: username,
           email: user.email,
+          photoUrl:
+            'https://firebasestorage.googleapis.com/v0/b/m-hiker.appspot.com/o/images%2Fuser.png?alt=media&token=ef042fe4-cc98-49a5-b57c-a17d48c3037b',
         })
       );
-
-      if (auth.currentUser != null) {
-        updateProfile(auth.currentUser, {
-          displayName: username,
-        });
-      }
 
       navigate('/');
     })
@@ -64,13 +70,12 @@ const handleLogin = (
     .then((userCredential) => {
       const user = userCredential.user;
 
-      console.log(user.displayName);
-
       dispatch(
         signIn({
           uid: user.uid,
           username: user.displayName,
           email: user.email,
+          photoUrl: user.photoURL,
         })
       );
 
@@ -140,10 +145,31 @@ const handleDeleteProfileTrail = (
   toast('Deleted Trail');
 };
 
+const handleUpdateProfileImage = (
+  photoUrl: string,
+  dispatch: Dispatch<AnyAction>
+) => {
+  updateProfile(auth.currentUser!, {
+    photoURL: photoUrl,
+  })
+    .then(() => {
+      dispatch(
+        signIn({
+          uid: auth.currentUser!.uid,
+          username: auth.currentUser!.displayName,
+          email: auth.currentUser!.email,
+          photoUrl: photoUrl,
+        })
+      );
+    })
+    .catch((error) => {});
+};
+
 export {
   handleRegister,
   handleLogin,
   handleSignOut,
   handleGetProfileTrails,
   handleDeleteProfileTrail,
+  handleUpdateProfileImage,
 };

@@ -31,12 +31,19 @@ import trial from '../assets/img/trials/trial-1.jpg';
 
 import user from '../assets/img/user.png';
 import { addTrails } from '../firebase/handlers/trailHandlers';
-import { toggleSpinner } from '../redux/reducers/spinnerReducer';
+import {
+  setSpinnerActive,
+  setSpinnerDisable,
+  toggleSpinner,
+} from '../redux/reducers/spinnerReducer';
 import {
   handleDeleteProfileTrail,
   handleGetProfileTrails,
+  handleUpdateProfileImage,
 } from '../firebase/handlers/authHandlers';
 import { ITrail } from '../redux/reducers/trailReducer';
+
+import { MdPhotoCamera } from 'react-icons/md';
 
 const ProfileBackgroundImage = styled.img`
   object-fit: cover;
@@ -63,6 +70,7 @@ const Left = styled.div`
   align-items: center;
   gap: 2rem;
   flex-wrap: wrap;
+  position: relative;
 `;
 
 const UserImg = styled(Image)`
@@ -178,14 +186,37 @@ const EmptyCard = styled.div`
   }
 `;
 
+const MdPhotoCameraIcon = styled(MdPhotoCamera)`
+  position: absolute;
+  font-size: 12rem;
+  opacity: 0;
+
+  padding: 4rem;
+  z-index: 5;
+  left: 0.5rem;
+  top: -6.5rem;
+
+  color: var(--primary-text);
+
+  :hover {
+    cursor: pointer;
+    opacity: 1;
+  }
+`;
+
+const ProfileImageModal = styled(Modal)``;
+
 const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const authData: IInitStateUser = useSelector((state: any) => state.auth);
 
-  const [showModal, setShowModal] = useState(false);
+  const [showAddTrailModal, setShowAddTrailModal] = useState(false);
+  const [showProfileImageModal, setShowProfileImageModal] = useState(false);
+
   const [files, setFile] = useState<any>();
+  const [profileImageFile, setProfileImageFile] = useState<any>();
 
   const nameRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLTextAreaElement | null>(null);
@@ -232,8 +263,24 @@ const ProfilePage = () => {
     dispatch(toggleSpinner());
   };
 
-  const onFileAdd = (event: any) => {
-    setFile(event.target.files);
+  const onAddProfileImageHandler = async (event: any) => {
+    event.preventDefault();
+
+    dispatch(setSpinnerActive());
+
+    if (profileImageFile !== undefined) {
+      console.log('Eke');
+      const image = ref(storage, `images/${profileImageFile.name + v4()}`);
+
+      await uploadBytes(image, profileImageFile);
+
+      const downloadUrl = await getDownloadURL(image);
+
+      handleUpdateProfileImage(downloadUrl, dispatch);
+    }
+    dispatch(setSpinnerDisable());
+
+    toast('Sucessfully Changed Profile Image!');
   };
 
   useEffect(() => {
@@ -248,6 +295,11 @@ const ProfilePage = () => {
       <ProfileWrapper>
         <Top>
           <Left>
+            <MdPhotoCameraIcon
+              onClick={() => {
+                setShowProfileImageModal(true);
+              }}
+            />
             <UserImg src={authData.photoUrl} roundedCircle fluid />
             <ProfileInfo>
               <h2>{authData.username}</h2>
@@ -299,7 +351,7 @@ const ProfilePage = () => {
           <BottomRight>
             <h2>My Trails</h2>
             <Trails>
-              <EmptyCard onClick={() => setShowModal(true)}>
+              <EmptyCard onClick={() => setShowAddTrailModal(true)}>
                 <FaPlusCircle />
                 <h2>Add Trail</h2>
               </EmptyCard>
@@ -360,7 +412,10 @@ const ProfilePage = () => {
           </BottomRight>
         </Bottom>
       </ProfileWrapper>
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal
+        show={showAddTrailModal}
+        onHide={() => setShowAddTrailModal(false)}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Create Trail</Modal.Title>
         </Modal.Header>
@@ -389,7 +444,9 @@ const ProfilePage = () => {
             <Form.Group className="mb-3">
               <Form.Label>Image (up to 4 images)</Form.Label>
               <Form.Control
-                onChange={onFileAdd}
+                onChange={(event: any) => {
+                  setFile(event.target.files);
+                }}
                 type="file"
                 accept="image/*"
                 required
@@ -406,11 +463,52 @@ const ProfilePage = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => setShowAddTrailModal(false)}
+          >
             Close
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <ProfileImageModal
+        show={showProfileImageModal}
+        onHide={() => setShowProfileImageModal(false)}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Profile Image</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form validated={true} onSubmit={onAddProfileImageHandler}>
+            <Form.Group className="mb-3">
+              <Form.Label>Image (up to 4 images)</Form.Label>
+              <Form.Control
+                onChange={(event: any) => {
+                  setProfileImageFile(event.target.files[0]);
+                }}
+                type="file"
+                accept="image/*"
+                required
+              />
+            </Form.Group>
+            <Button
+              type="submit"
+              style={{ backgroundColor: 'var(--primary)', border: 'none' }}
+            >
+              Create
+            </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowProfileImageModal(false)}
+          >
+            Close
+          </Button>
+        </Modal.Footer>
+      </ProfileImageModal>
     </>
   );
 };
