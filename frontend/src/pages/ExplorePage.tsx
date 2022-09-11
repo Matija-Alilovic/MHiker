@@ -86,7 +86,7 @@ const TrailCard = styled(Card)`
 
 const TrailCardImage = styled(Card.Img)`
   width: 100%;
-  height: 280px;
+  height: 250px;
   object-fit: cover;
 `;
 

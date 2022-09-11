@@ -127,11 +127,10 @@ const Comment = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 2rem;
-  background-color: var(--primary-text);
   margin-bottom: 2rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  padding: 1.8rem 1.5rem;
-  border-radius: 1rem;
+  border: 2px solid var(--primary);
+  padding: 1.4rem 1.2rem;
+  border-radius: 10px;
 
   span {
     font-size: 1.2rem;
@@ -139,7 +138,6 @@ const Comment = styled.div`
 `;
 
 const UserImg = styled(Image)`
-  border: 3px solid var(--text);
   width: 5rem;
   height: 5rem;
 `;

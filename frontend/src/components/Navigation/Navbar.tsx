@@ -75,9 +75,7 @@ const LogoImg = styled.img`
   width: 50px;
 `;
 
-const UserImg = styled(Image)`
-  border: 3px solid var(--text);
-`;
+const UserImg = styled(Image)``;
 
 interface Props {
   children: React.ReactNode;
